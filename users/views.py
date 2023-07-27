@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
-import time
+from .forms import RegistrationForm
 
 def login_user(request):
 	if request.method == "POST":
@@ -32,7 +32,7 @@ def register(request):
 
 	else:
 		if request.method == "POST":
-			form = UserCreationForm(request.POST)
+			form = RegistrationForm(request.POST)
 			if form.is_valid():
 				form.save()
 				username = form.cleaned_data['username']
@@ -43,7 +43,7 @@ def register(request):
 				return redirect('dashboard')
 
 		else:
-			form = UserCreationForm()
+			form = RegistrationForm()
 		return render(request, 'authenticate/register.html', {
 			'form':form,
 		})

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+{% for puzzle in problem_set %}
+    <h1>{{ puzzle.label }}</h1>
+    <p>{{ puzzle.instruction }}</p>
+
+    {{ puzzle.position_diagram|safe }}
+{% endfor %}    
+</body>
+
+</html>

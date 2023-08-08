@@ -1,10 +1,11 @@
 from django.db import models
 import chess
 import chess.svg
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Puzzle(models.Model):
     position_fen = models.CharField(max_length=200)
-    level = models.IntegerField(default=0)
+    level = models.IntegerField(default=0, validators=[MaxValueValidator(5), MinValueValidator(1)])
     label = models.CharField(max_length=200)
     instruction = models.CharField(max_length=200)
     due_date = models.DateField(null=True)

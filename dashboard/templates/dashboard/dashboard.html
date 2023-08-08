@@ -1,6 +1,15 @@
 {% extends 'dashboard/base.html' %}
 {% block content%}
+{% load static %}
+<body>
+    <h1>Welcome to the Dashboard {{ user.first_name }}</h1>
 
-<h1>Welcome to the Dashboard</h1>
+    <h2>You have {{ puzzle }} puzzles to solve</h2>
+
+    <h2>{{ groups }}</h2>
+    <div>
+        <img src="/static/images/puzzleicon.png" alt="Img Error" width='500' height='500' loading="eager">
+    </div>
+</body>
 
 {% endblock %}

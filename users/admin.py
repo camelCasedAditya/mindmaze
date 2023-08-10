@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Puzzles_Solved
 
-# Register your models here.
+admin.site.register(Puzzles_Solved)

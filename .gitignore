@@ -1,4 +1,4 @@
-
+*.pyc
 .DS_Store
 dashboard/.DS_Store
 puzzles/.DS_Store

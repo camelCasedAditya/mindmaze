@@ -25,8 +25,8 @@ def index(request):
 
     problem_set = Puzzle.objects.filter(level = user_level)
     completed_set = Puzzles_Solved.objects.filter(user = request.user).values_list('puzzle_id', flat=True)
-    for i in completed_set:
-            problem_set = Puzzle.objects.filter(level = user_level).exclude(pk=i)
+    #for i in completed_set:
+    problem_set = Puzzle.objects.filter(level = user_level).exclude(pk__in=completed_set)
     context = {"problem_set": problem_set}
     return render(request, "puzzles/index.html", context)
 

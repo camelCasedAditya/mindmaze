@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User, Group
 from .forms import RegistrationForm
 
 def login_user(request):
@@ -37,6 +38,10 @@ def register(request):
 				form.save()
 				username = form.cleaned_data['username']
 				password = form.cleaned_data['password1']
+				user = User.objects.get(username=username)
+				group = Group.objects.get(name="Default")
+				user.groups.add(group)
+				user.save()
 				user = authenticate(username=username, password=password)
 				login(request, user)
 				messages.success(request, ("Registration Successful"))

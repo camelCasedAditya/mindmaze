@@ -20,6 +20,8 @@ def dashboard(request):
             user_level = 4
         elif groupname == 'Elite_Level':
             user_level = 5
+        elif groupname == 'Default':
+            user_level = 1
         puzzleslengthlist = []
         for i in Puzzle.objects.filter(level=user_level):
             puzzleslengthlist.append(g.name)

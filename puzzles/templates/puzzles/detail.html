@@ -1,11 +1,18 @@
 <h1>{{ puzzle.label }}</h1>
-<p>{{ puzzle.instruction }}</p>
+<p>{{ puzzle.prompt }}</p>
 {{ puzzle.position_diagram|safe }}
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+{% if not answered %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+{% else %}
+    <h2>Your answer:</h2>
+    <h4>{{ submission.user_answer }}</h4>
+    <h2>Solution:</h2>
+    <h4>{{ puzzle.solution }}</h4>
+{% endif %}
 
 

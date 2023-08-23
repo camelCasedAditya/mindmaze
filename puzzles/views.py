@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from .models import Puzzle
 from .forms import AnswerForm
-from users.models import Puzzles_Solved
+from users.models import Submission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
@@ -24,20 +24,29 @@ def index(request):
         user_level = 1
 
     problem_set = Puzzle.objects.filter(level = user_level)
-    completed_set = Puzzles_Solved.objects.filter(user = request.user).values_list('puzzle_id', flat=True)
-    #for i in completed_set:
-    problem_set = Puzzle.objects.filter(level = user_level).exclude(pk__in=completed_set)
+    completed_set = Submission.objects.filter(user = request.user).values_list('puzzle_id', flat=True)
+    for i in completed_set:
+        problem_set = problem_set.exclude(pk = i)
     context = {"problem_set": problem_set}
     return render(request, "puzzles/index.html", context)
 
 @login_required
 def detail(request, puzzle_id_detail):
-    if request.method == "POST":
-        form = AnswerForm(request.POST)
-        if form.is_valid():
-            #correct
-            student_answer = form.cleaned_data["student_answer"]
-    else:
-        form = AnswerForm()
     puzzle = get_object_or_404(Puzzle, pk=puzzle_id_detail)
-    return render(request, "puzzles/detail.html", {"puzzle": puzzle, "form": form})
+    past_submission = Submission.objects.filter(user = request.user, puzzle_id = puzzle_id_detail)
+    answered = past_submission.exists()
+
+    if not answered:
+        if request.method == "POST":
+            form = AnswerForm(request.POST)
+            if form.is_valid():
+                answered = True
+                student_answer = form.cleaned_data["student_answer"]
+                submission = Submission.objects.create(user=request.user, user_answer=student_answer, 
+                                                        puzzle_id=puzzle_id_detail, is_correct=(puzzle.solution==student_answer))
+                return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": submission, "answered": answered})
+        else:
+            form = AnswerForm()
+            return render(request, "puzzles/detail.html", {"puzzle": puzzle, "form": form, "answered": answered})
+    else:
+        return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": past_submission[0], "answered": answered})

@@ -10,8 +10,9 @@
     <div class="shadow-lg p-5 my-5 mx-5 bg-body rounded">
         <h1>{{ puzzle.label }}</h1>
         <p>{{ puzzle.instruction }}</p>
-
-        {{ puzzle.position_diagram|safe }}
+        <a href="{{ puzzle.id }}">
+            {{ puzzle.position_diagram|safe }}
+        </a>
     </div>
 {% endfor %}    
 </body>

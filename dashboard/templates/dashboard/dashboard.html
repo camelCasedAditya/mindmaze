@@ -1,14 +1,106 @@
 {% extends 'dashboard/base.html' %}
 {% block content%}
 {% load static %}
-<body>
-    <h1>Welcome to the Dashboard {{ user.first_name }}</h1>
 
-    <h2>You have {{ puzzle }} puzzles to solve</h2>
+<body>
+    <div class="mx-3">
+        <h2>Hello {{ user.first_name }},</h2>
+        <h2>Welcome Back To Your Dashboard</h2>
+    </div> 
+
+    <!-- <h2>You have {{ puzzle }} puzzles to solve</h2>
 
     <h2>{{ groups }}</h2>
-    <div>
-        <img src="/static/images/puzzleicon.png" alt="Img Error" width='500' height='500' loading="eager">
+
+    <h1>Graph</h1> -->
+    <div class="container">
+        <div class="row g-5">
+            <div class="col">
+                <div class="shadow-lg my-3 bg-body rounded text-center" style="height: 520px; width: 450px;">
+                        <canvas class="text-center" id="myChart" style="position: relative; height: 500; width: 400; padding-top: 10px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"></canvas>
+                </div>
+
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                <script>
+                    const ctx = document.getElementById('myChart');
+                
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Puzzles Solved Correctly','Puzzles Solved Incorrectly'],
+                            datasets: [{
+                                label: '# of Puzzles',
+                                data: {{data|safe}},
+                                borderWidth: 1,
+                                backgroundColor: [
+                                    'rgb(119,221,119)',
+                                    'rgb(255,105,97)',
+                                ],
+                                hoverOffset: 1,
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Chart of Puzzle Correctness'
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        
+            <!-- <div>
+                <img src="/static/images/puzzleicon.png" alt="Img Error" width='500' height='500' loading="eager">
+            </div> -->
+            <div class="col">
+                <div class="row">
+                    <div class="shadow-lg my-3 ms-3 me-3 bg-body rounded" style="height: 245px; width: 245px;">
+                        <br><br>
+                        <h1 class="num" data-val="{{puzzles_solved}}" style="text-align: center; font-size: 60px; vertical-align: middle;">0</h1>
+                        <br>
+                        <h6 class="text-center">Total Puzzles Solved</h6>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="shadow-lg my-3 ms-3 me-3 bg-body rounded" style="height: 245px; width: 245px;">
+                            <br><br>
+                            <h1 class="num" data-val="{{puzzle}}" style="text-align: center; font-size: 60px;">0</h1>
+                            <br>
+                            <h6 class="text-center">Puzzles To Be Solve</h6>
+                            <a href="http://127.0.0.1:8000/puzzle/"><p class="text-center link-dark">(Click Here)</p></a>
+                        </div>
+                </div>
+
+                <script>
+                    let valueDisplays = document.querySelectorAll(".num");
+                    let interval = 2000;
+                    valueDisplays.forEach((valueDisplay) => {
+                        let startValue = 0;
+                        let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+                        let duration = Math.floor(interval / endValue);
+                        if (endValue <= 25) {
+                            duration = 1000/endValue
+                        }
+                        let counter = setInterval(function () {
+                            startValue += 1;
+                            valueDisplay.textContent = startValue;
+                            if (startValue == endValue) {
+                                clearInterval(counter);
+                            }
+                        }, duration);
+                    });
+                </script>
+            </div>
+            <div class="col">
+                <div class="shadow-lg my-3 bg-body rounded" style="height: 520px; width: 450px;">
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

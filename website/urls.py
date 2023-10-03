@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('users.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('puzzle/', include('puzzles.urls')),
+    path('solved/', include('solved_puzzles.urls'))
 ]

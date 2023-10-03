@@ -27,7 +27,11 @@ def index(request):
     completed_set = Submission.objects.filter(user = request.user).values_list('puzzle_id', flat=True)
     for i in completed_set:
         problem_set = problem_set.exclude(pk = i)
-    context = {"problem_set": problem_set}
+    no_puzzles = False
+    puzzles_left = list(problem_set)
+    if (len(puzzles_left) == 0):
+        no_puzzles = True
+    context = {"problem_set": problem_set, "no_puzzles":no_puzzles}
     return render(request, "puzzles/index.html", context)
 
 @login_required
@@ -56,7 +60,7 @@ def detail(request, puzzle_id_detail):
     for i in completed_set:
         problem_set = problem_set.exclude(pk = i)
 
-    
+    next_puzzle_exists = True
     problem_set = list(problem_set)
     puzzle_index = problem_set.index(puzzle)
     problem_set_len = len(problem_set)
@@ -78,9 +82,12 @@ def detail(request, puzzle_id_detail):
                 student_answer = form.cleaned_data["student_answer"]
                 submission = Submission.objects.create(user=request.user, user_answer=student_answer, 
                                                         puzzle_id=puzzle_id_detail, is_correct=(puzzle.solution==student_answer))
-                return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": submission, "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle})
+                if (len(problem_set) == 0):
+                    next_puzzle_exists = False
+                return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": submission, "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "button_enabled":next_puzzle_exists})
         else:
             form = AnswerForm()
-            return render(request, "puzzles/detail.html", {"puzzle": puzzle, "form": form, "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle})
+            return render(request, "puzzles/detail.html", {"puzzle": puzzle, "form": form, "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "button_enabled":next_puzzle_exists})
     else:
-        return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": past_submission[0], "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle})
+        return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": past_submission[0], "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "button_enabled":next_puzzle_exists})
+    

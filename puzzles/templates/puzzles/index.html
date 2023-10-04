@@ -6,6 +6,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
+{% if no_puzzles == True %}
+    <h1>You have solved all your puzzles</h1>
+{% endif %}
 {% for puzzle in problem_set %}
     <div class="shadow-lg p-5 my-5 mx-5 bg-body rounded">
         <h1>{{ puzzle.label }}</h1>

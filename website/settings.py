@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'dashboard',
-    'puzzles'
+    'puzzles',
+    'solved_puzzles',
 ]
 
 MIDDLEWARE = [

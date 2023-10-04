@@ -23,10 +23,15 @@
             <h2>Solution:</h2>
             <h4>{{ puzzle.solution }}</h4>
         {% endif %}
+        {% if not button_enables%}
         <div class="pt-3 pb-4">
-            <a href="http://127.0.0.1:8000/puzzle/{{ prev_puzzle.id }}"><button class="btn btn-outline-secondary">Previous</button></a>
-            <a href="http://127.0.0.1:8000/puzzle/{{ next_puzzle.id }}"><button class="btn btn-outline-secondary">Next</button></a>
+            <a href="http://127.0.0.1:8000/puzzle/"><button class="btn btn-outline-secondary">Previous</button></a>
+            <a href="http://127.0.0.1:8000/puzzle/"><button class="btn btn-outline-secondary">Next</button></a>
         </div>
+        {% else %}
+        <a href="http://127.0.0.1:8000/puzzle/{{ prev_puzzle.id }}"><button class="btn btn-outline-secondary">Previous</button></a>
+        <a href="http://127.0.0.1:8000/puzzle/{{ next_puzzle.id }}"><button class="btn btn-outline-secondary">Next</button></a>
+        {% endif %}
     </div>
 </div>
 

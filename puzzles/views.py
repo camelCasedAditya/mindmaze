@@ -104,24 +104,6 @@ def detail(request, puzzle_id_detail):
                     else:
                         answered = False
 
-                    # problem_set = Puzzle.objects.filter(level = user_level)
-                    # completed_set = Submission.objects.filter(Q(attempts=3) | Q(is_correct=True), user = request.user).values_list('puzzle_id', flat=True)
-                    # for i in completed_set:
-                    #     problem_set = problem_set.exclude(pk = i)
-
-                    # next_puzzle_exists = True
-                    # problem_set = list(problem_set)
-                    # puzzle_index = problem_set.index(puzzle)
-                    # problem_set_len = len(problem_set)
-                    # if (puzzle_index+1) > (problem_set_len-1):
-                    #     next_puzzle = problem_set[0]
-                    # else:
-                    #     next_puzzle = problem_set[puzzle_index+1]
-                    # if (puzzle_index-1) < 0:
-                    #     prev_puzzle = problem_set[problem_set_len-1]
-                    # else:
-                    #     prev_puzzle = problem_set[puzzle_index-1]
-
                     if (len(problem_set) == 0):
                         next_puzzle_exists = False
                     form = AnswerForm(request.POST)
@@ -139,24 +121,6 @@ def detail(request, puzzle_id_detail):
                         answered = True
                     else:
                         answered = False
-                    
-                    # problem_set = Puzzle.objects.filter(level = user_level)
-                    # completed_set = Submission.objects.filter(Q(attempts=3) | Q(is_correct=True), user = request.user).values_list('puzzle_id', flat=True)
-                    # for i in completed_set:
-                    #     problem_set = problem_set.exclude(pk = i)
-
-                    # next_puzzle_exists = True
-                    # problem_set = list(problem_set)
-                    # puzzle_index = problem_set.index(puzzle)
-                    # problem_set_len = len(problem_set)
-                    # if (puzzle_index+1) > (problem_set_len-1):
-                    #     next_puzzle = problem_set[0]
-                    # else:
-                    #     next_puzzle = problem_set[puzzle_index+1]
-                    # if (puzzle_index-1) < 0:
-                    #     prev_puzzle = problem_set[problem_set_len-1]
-                    # else:
-                    #     prev_puzzle = problem_set[puzzle_index-1]
 
                     if (len(problem_set) == 0):
                         next_puzzle_exists = False
@@ -168,6 +132,5 @@ def detail(request, puzzle_id_detail):
             form = AnswerForm()
             return render(request, "puzzles/detail.html", {"puzzle": puzzle, "form": form, "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "button_enabled":next_puzzle_exists, "attempts_left":attempts_left})
     else:
-        # form = AnswerForm(request.POST)
         return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": past_submission[0], "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "button_enabled":next_puzzle_exists, "attempts_left":attempts_left})
     

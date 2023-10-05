@@ -36,5 +36,9 @@ def detail(request, puzzle_id):
     else:
         prev_puzzle = problem_set[puzzle_index-1]
 
-    context = {"puzzle": puzzle, "submission": past_submission, "answered": answered, "answer":user_answer, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle}
+    past_attempts = Submission.objects.filter(puzzle_id = puzzle_id).values_list("attempts", flat=True)
+    past_attempts = list(past_attempts)
+    past_attempts = int(past_attempts[0])
+
+    context = {"puzzle": puzzle, "submission": past_submission, "answered": answered, "answer":user_answer, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "past_attempts":past_attempts}
     return render(request, "solved_puzzles/detail.html", context)

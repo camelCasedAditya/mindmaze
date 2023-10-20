@@ -60,7 +60,7 @@
                 <div class="row">
                     <div class="shadow-lg my-3 ms-3 me-3 bg-body rounded" style="height: 245px; width: 245px;">
                         <br><br>
-                        <h1 class="num" data-val="{{puzzles_solved}}" style="text-align: center; font-size: 60px; vertical-align: middle;">0</h1>
+                        <h1 class="num" data-val="" style="text-align: center; font-size: 60px; vertical-align: middle;">{{puzzles_solved}}</h1>
                         <br>
                         <h6 class="text-center">Total Puzzles Solved</h6>
                     </div>
@@ -68,32 +68,40 @@
                 <div class="row">
                         <div class="shadow-lg my-3 ms-3 me-3 bg-body rounded" style="height: 245px; width: 245px;">
                             <br><br>
-                            <h1 class="num" data-val="{{puzzle}}" style="text-align: center; font-size: 60px;">0</h1>
+                            <h1 class="num" data-val="" style="text-align: center; font-size: 60px;">{{puzzle}}</h1>
                             <br>
                             <h6 class="text-center">Puzzles To Be Solve</h6>
                             <a href="http://127.0.0.1:8000/puzzle/"><p class="text-center link-dark">(Click Here)</p></a>
                         </div>
                 </div>
 
-                <script>
-                    let valueDisplays = document.querySelectorAll(".num");
+                <!-- <script>
+                    let valueDisplays = document.querySelectorAll(".num1");
                     let interval = 2000;
                     valueDisplays.forEach((valueDisplay) => {
                         let startValue = 0;
                         let endValue = parseInt(valueDisplay.getAttribute("data-val"));
-                        let duration = Math.floor(interval / endValue);
-                        if (endValue <= 25) {
-                            duration = 1000/endValue
+                        if (endValue > 0) {
+                            let duration = Math.floor(interval / endValue);
                         }
+                        if (endValue == 0) {
+                            duration = 0;
+                        }
+                        else if (endValue <= 25) {
+                            duration = 1000/endValue;
+                        }
+                        
                         let counter = setInterval(function () {
                             startValue += 1;
                             valueDisplay.textContent = startValue;
                             if (startValue == endValue) {
                                 clearInterval(counter);
+                                break
                             }
                         }, duration);
                     });
-                </script>
+                </script> -->
+                
             </div>
             <div class="col">
                 <div class="shadow-lg my-3 bg-body rounded" style="height: 520px; width: 450px;">

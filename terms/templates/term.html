@@ -1,0 +1,35 @@
+{% extends 'dashboard/base.html' %}
+{% block content%}
+{% load static %}
+
+<body>
+    <h2> {{ term.name }} </h2>
+    <div class="list-group list-group-flush">
+        {% for week in preview %}
+        {% if week != 0 %}
+            
+            
+                {% for puzzle in week %}
+                    {% if puzzle.number == 1 %}
+                    <a href="{{ puzzle.week }}"  class="list-group-item">
+                        <h1> Week {{ puzzle.week }}</h1>
+                    {% endif %}
+                    {% if puzzle != 0 %}
+                    
+                        
+                            {{ puzzle.position_diagram|safe }}
+                        
+                        
+                    {% endif %}
+                    
+                
+                {% endfor %}
+                
+            </a>
+            {% endif %}
+        
+        {% endfor %}
+    </div>
+</body>
+
+{% endblock %}

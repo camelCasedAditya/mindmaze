@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 from .models import Puzzle
 from .forms import AnswerForm
+from terms.models import Term
 from users.models import Submission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group

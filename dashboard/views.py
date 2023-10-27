@@ -4,6 +4,7 @@ from puzzles.models import Puzzle
 from users.models import Submission
 from django.contrib.auth.models import Group
 from users.models import Submission
+from terms.models import Term
 import plotly.offline as plot
 import pandas as pd
 

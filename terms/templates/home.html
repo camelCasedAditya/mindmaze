@@ -1,0 +1,14 @@
+{% extends 'dashboard/base.html' %}
+{% block content%}
+{% load static %}
+
+<body>
+    <h1> All Terms </h1>
+    {% for term in term_list %}
+        <h3>{{ term.year }}</h3>
+        <a href="{% url 'term_detail' term.year term.season %}">
+            {{ term.name }}</a>
+    {% endfor %}
+</body>
+
+{% endblock %}

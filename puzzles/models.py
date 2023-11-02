@@ -14,9 +14,6 @@ class Puzzle(models.Model):
     prompt = models.CharField(max_length=200)
     #due_date = models.DateField(null=True)
     solution = models.CharField(max_length=200)
-    
-    #puzzle_num = models.IntegerField()
-
 
     def __str__(self):
         return self.label

@@ -3,7 +3,13 @@
 {% load static %}
 
 <body>
-    <h2> {{ term.name }} </h2>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'term' %}">Terms Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Term</li>
+        </ol>
+      </nav>
+    <h2> {{ term.season }} {{ term.year }}</h2>
     <div class="list-group list-group-flush">
         {% for week in preview %}
         {% if week != 0 %}
@@ -15,11 +21,7 @@
                         <h1> Week {{ puzzle.week }}</h1>
                     {% endif %}
                     {% if puzzle != 0 %}
-                    
-                        
-                            {{ puzzle.position_diagram|safe }}
-                        
-                        
+
                     {% endif %}
                     
                 

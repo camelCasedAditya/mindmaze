@@ -6,7 +6,8 @@ from users.models import Submission
 
 def home(request):
     term_list = Term.objects.all()
-    return render(request, "home.html", {"term_list":term_list})
+    current_term = term_list.last()
+    return render(request, "home.html", {"current_term":current_term, "term_list":term_list})
 
 def list(request, year):
     term_list = Term.objects.all()

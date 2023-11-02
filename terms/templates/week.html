@@ -26,11 +26,20 @@
 </style>
 
 <body>
-    <h2> {{ term.name }} </h2>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'term' %}">Terms Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'term_detail' term.year term.season %}">Term</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Week {{ week }}</li>
+        </ol>
+      </nav>
+
+    <h2> {{ term.season }} {{ term.year }}</h2>
     <h3> Week {{ week }}</h3>
     
     {% for puzzle, submission in problem_set %}
         <div class="container text-center shadow-lg p-5 my-5 mx-5 bg-body rounded">
+            <div class="row"><h1><p class="text-start">{{ puzzle.number }}.</p></h1></div>
             <div class="row">
                 <div class="col">
                     <h1>{{ puzzle.label }}</h1>
@@ -54,6 +63,7 @@
                         {% endif %}
                         <h1>Your Answer</h1>
                         <h4>{{ submission.user_answer }}</h4>
+                        <h4>{{ submission.attempts }} attempt(s) used</h4>
                     {% else %}
                         <span class="gray-circle"></span>
                         <h1>Not Answered</h1>

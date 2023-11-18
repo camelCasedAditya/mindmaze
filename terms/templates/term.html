@@ -1,0 +1,37 @@
+{% extends 'dashboard/base.html' %}
+{% block content%}
+{% load static %}
+
+<body>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'term' %}">Terms Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Term</li>
+        </ol>
+      </nav>
+    <h2> {{ term.season }} {{ term.year }}</h2>
+    <div class="list-group list-group-flush">
+        {% for week in preview %}
+        {% if week != 0 %}
+            
+            
+                {% for puzzle in week %}
+                    {% if puzzle.number == 1 %}
+                    <a href="{{ puzzle.week }}"  class="list-group-item">
+                        <h1> Week {{ puzzle.week }}</h1>
+                    {% endif %}
+                    {% if puzzle != 0 %}
+
+                    {% endif %}
+                    
+                
+                {% endfor %}
+                
+            </a>
+            {% endif %}
+        
+        {% endfor %}
+    </div>
+</body>
+
+{% endblock %}

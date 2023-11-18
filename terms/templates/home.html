@@ -1,0 +1,26 @@
+{% extends 'dashboard/base.html' %}
+{% block content%}
+{% load static %}
+
+<body>
+    <h1>Current Term</h1>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ current_term.season }} {{ current_term.year }}</h5>
+          <p class="card-text">Your active training session</p>
+          <a href="{% url 'term_detail' current_term.year current_term.season %}" class="btn btn-primary">Go to Term</a>
+        </div>
+      </div>
+    <h1> All Terms </h1>
+    {% for term in term_list %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">{{ term.season }} {{ term.year }}</h5>
+            <p class="card-text"></p>
+            <a href="{% url 'term_detail' term.year term.season %}" class="btn btn-primary">Go to Term</a>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+
+{% endblock %}

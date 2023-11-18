@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'dashboard',
+    'terms',
     'puzzles',
     'solved_puzzles',
 ]

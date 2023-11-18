@@ -12,6 +12,7 @@ class Puzzle(models.Model):
     position_fen = models.CharField(max_length=200)
     label = models.CharField(max_length=200)
     prompt = models.CharField(max_length=200)
+    explination = models.TextField(default="Insert Explination")
     #due_date = models.DateField(null=True)
     solution = models.CharField(max_length=200)
 

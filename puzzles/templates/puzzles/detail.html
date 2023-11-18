@@ -44,11 +44,14 @@
     <br />
 
     {% else %}
-    <h2>Your answer:</h2>
+    <h2>Your Answer:</h2>
     <h4>{{ student_answer }}</h4>
     <h2>Solution:</h2>
     <h4>{{ puzzle.solution }}</h4>
-    <br />
+    <br>
+    <h2>Explanation: </h2>
+    <h5>{{ puzzle.explination }}</h5>
+    <br>
     {% if button_enabled == False %}
     <div class="pt-3 pb-4">
       <a href="http://127.0.0.1:8000/puzzle/"
@@ -69,5 +72,7 @@
     <br />
   </div>
 </div>
+
+{% endblock %}
 
 {% endblock %}

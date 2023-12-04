@@ -1,11 +1,13 @@
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
+from django import template
 from .models import Puzzle
 from .forms import AnswerForm
 from terms.models import Term
 from users.models import Submission
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.models import Group
+from django.core.paginator import Paginator
 
 
 @login_required
@@ -35,7 +37,14 @@ def index(request):
     puzzles_left = list(problem_set)
     if (len(puzzles_left) == 0):
         no_puzzles = True
-    context = {"problem_set": problem_set, "no_puzzles": no_puzzles}
+
+    p = Paginator(problem_set, 6)
+    page = request.GET.get('page')
+    puzzles = p.get_page(page)
+
+    number_of_pages = "a" * puzzles.paginator.num_pages
+
+    context = {"problem_set": problem_set, "no_puzzles": no_puzzles, "puzzles":puzzles, "number_of_pages":number_of_pages}
     return render(request, "puzzles/index.html", context)
 
 
@@ -97,6 +106,7 @@ def detail(request, puzzle_id_detail):
     else:
         prev_puzzle = problem_set[puzzle_index-1]
 
+
     if (past_attempts < 3):
         if request.method == "POST":
             form = AnswerForm(request.POST or None)
@@ -150,3 +160,10 @@ def detail(request, puzzle_id_detail):
             return render(request, "puzzles/detail.html", {"puzzle": puzzle, "form": form, "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "button_enabled": next_puzzle_exists, "attempts_left": attempts_left})
     else:
         return render(request, "puzzles/detail.html", {"puzzle": puzzle, "submission": past_submission[0], "answered": answered, "next_puzzle": next_puzzle, "prev_puzzle": prev_puzzle, "button_enabled": next_puzzle_exists, "attempts_left": attempts_left})
+
+# register = template.Library()
+# @register.filter
+# def splitByTwo(lst, n):
+#     """Yield successive n-sized chunks from lst."""
+#     for i in range(0, len(lst), 2):
+#         yield lst[i:i + n]

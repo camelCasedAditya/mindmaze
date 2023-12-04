@@ -20,4 +20,4 @@ class Puzzle(models.Model):
         return self.label
     
     def position_diagram(self):
-        return chess.svg.board(chess.Board(self.position_fen), size=400)
+        return chess.svg.board(chess.Board(self.position_fen), size=375)

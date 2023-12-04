@@ -6,16 +6,55 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     </head>
     <body>
-        {% for puzzle in solved %}
-            <div class="shadow-lg p-5 my-5 mx-5 bg-body rounded">
-                <h1>{{ puzzle.label }}</h1>
-                <p>{{ puzzle.instruction }}</p>
-                <a href= "{{ puzzle.id }}">
-                    {{ puzzle.position_diagram|safe }}
-                </a>
+        <div class="row" style="margin-top: -1%;">
+            <div class="col">
+              <h3>Solved Puzzles</h3>
             </div>
-        {% endfor %}    
-    </body>
+            <div class="col">
+              <h4 style="font-style: italic; color: blue; margin-left: -10%;">*Click on the board of the puzzle you want to see more info on </h4>
+            </div>
+          </div>
+
+        <div class="row gy-0" style="margin-left: -5%; margin-top: -3%;">
+            {% for puzzle in puzzles %}
+            <div class="col" style="text-align: center; margin-bottom: -3%;">
+              <div class="shadow-lg p-5 my-5 mx-5 bg-body rounded" style="width: 95%; height: 84%; text-align: center; margin-right: 5%;">
+                <h4 style="margin-top: -2%; padding-bottom: -5%;">{{ puzzle.label }}</h4>
+                <p>{{ puzzle.prompt }}</p>
+                <a href="{{ puzzle.id }}"> {{ puzzle.position_diagram|safe }} </a>
+              </div>
+            </div>
+            {% endfor %}
+        </div>    
+<br>
+
+<div class="pagination justify-content-center">
+    {% if puzzles.has_previous %}
+	    <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+
+	    <li class="page-item"><a class="page-link" href="?page={{ puzzles.previous_page_number }}">Previous</a></li>
+	
+    {% endif %}
+
+    {% if solved %}
+        <li class="page-item disabled"><a href="#" class="page-link">Page {{ puzzles.number }} of {{ puzzles.paginator.num_pages }}</a></li>
+    {% endif %}
+    <!-- {% for i in number_of_pages %}
+	    <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+    {% endfor %} -->
+    {% if puzzles.has_next %}
+	    <li class="page-item"><a class="page-link" href="?page={{ puzzles.next_page_number }}">Next</a></li>
+
+	    <li class="page-item"><a class="page-link" href="?page={{ puzzles.paginator.num_pages }}">Last &raquo</a></li>
+
+    {% endif %}
+    
+
+    </ul>
+    </nav>
+    </div>
+    <br/>
+  </body>
 </html>
 
 {% endblock %}

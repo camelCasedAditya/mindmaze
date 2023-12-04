@@ -44,8 +44,10 @@
 	
     {% endif %}
 
-    <li class="page-item disabled"><a href="#" class="page-link">Page {{ puzzles.number }} of {{ puzzles.paginator.num_pages }}</a></li>
-
+    {% if solved %}
+        <li class="page-item disabled"><a href="#" class="page-link">Page {{ puzzles.number }} of {{ puzzles.paginator.num_pages }}</a></li>
+    {% endif %}
+    
     <!-- {% for i in number_of_pages %}
 	    <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
     {% endfor %} -->

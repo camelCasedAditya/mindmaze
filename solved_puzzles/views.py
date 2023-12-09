@@ -11,8 +11,8 @@ from django.core.paginator import Paginator
 @login_required
 def index(request):
     completed_set = Submission.objects.filter(
-        user=request.user).values_list('puzzle_id', flat=True)
-    solved = Puzzle.objects.filter(pk__in=completed_set)
+        user=request.user).values_list('puzzle_id', flat=True).order_by('id')
+    solved = Puzzle.objects.filter(pk__in=completed_set).order_by('id')
 
     p = Paginator(solved, 6)
     page = request.GET.get('page')

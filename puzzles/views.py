@@ -28,7 +28,7 @@ def index(request):
     elif groupname == 'Default':
         user_level = 1
 
-    problem_set = Puzzle.objects.filter(level=user_level)
+    problem_set = Puzzle.objects.filter(level=user_level).order_by('id')
     completed_set = Submission.objects.filter(Q(attempts=3) | Q(
         is_correct=True), user=request.user).values_list('puzzle_id', flat=True)
     for i in completed_set:

@@ -3,6 +3,7 @@ from puzzles.models import Puzzle
 from users.models import Submission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -10,9 +11,17 @@ from django.contrib.auth.models import Group
 @login_required
 def index(request):
     completed_set = Submission.objects.filter(
-        user=request.user).values_list('puzzle_id', flat=True)
-    solved = Puzzle.objects.filter(pk__in=completed_set)
-    context = {"solved": solved}
+        user=request.user).values_list('puzzle_id', flat=True).order_by('id')
+    solved = Puzzle.objects.filter(pk__in=completed_set).order_by('id')
+
+    p = Paginator(solved, 6)
+    page = request.GET.get('page')
+    puzzles = p.get_page(page)
+
+    number_of_pages = "a" * puzzles.paginator.num_pages
+
+    context = {"solved": solved, "number_of_pages":number_of_pages, "puzzles":puzzles}
+
     return render(request, "solved_puzzles/index.html", context)
 
 

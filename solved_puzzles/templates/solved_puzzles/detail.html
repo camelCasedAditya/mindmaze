@@ -7,9 +7,11 @@
     <div class="shadow-lg px-5 mb-5 pt-3 bg-body text-center rounded-3" style="width:75%">
         <h1>{{ puzzle.label }}</h1>
         <h6>{{ puzzle.prompt }}</h6>
+
         {{ puzzle.position_diagram|safe }}
+
         <br>
-        <h4 style="padding-top: 10px;">You Took {{ past_attempts }} Attempts</h4>
+        <h4 style="padding-top: 10px;">You Took {{ past_attempts }} Attempt(s)</h4>
         <h2 >Your Answer:</h2>
         <h4>{{ answer }}</h4>
         <h2>Solution:</h2>

@@ -3,6 +3,16 @@
 {% load static %}
 
 <body>
+    {% if is_admin %}
+      <h1>Admin</h1>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Class List</h5>
+          <p class="card-text">Student details for the current training session</p>
+          <a href="{% url 'class' %}" class="btn btn-primary">Go to Class</a>
+        </div>
+      </div>
+    {% endif %}
     <h1>Current Term</h1>
     <div class="card" style="width: 18rem;">
         <div class="card-body">

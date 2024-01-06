@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html' %}
+{% block content%}
+{% load static %}
+
+<body>
+    {% if access %}
+    <h2>History </h2>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Week</th>
+            <th scope="col">Number</th>
+            <th scope="col">Status</th>
+            <th scope="col">Attempts</th>
+            <th scope="col">Last Submission</th>
+            </tr>
+        </thead>
+    </tbody>
+        {% for puzzle, submission in problem_set %}
+        <tr>
+            
+            {% if submission.is_correct %}
+                <td>{{ puzzle.week }}</td>
+                <th scope="row">
+                    <a href="{% url 'solved_detail' puzzle.pk %}">
+                        {{ puzzle.number }}
+                    </a>
+                </th>
+                <td>Solved</td>
+            {% else %}
+                <td>{{ puzzle.week }}</td>
+                <th scope="row">
+                    <a href="{% url 'detail' puzzle.pk %}">
+                        {{ puzzle.number }}
+                    </a>
+                </th>
+                <td>Incorrect</td>
+            {% endif %}
+            <td>{{ submission.attempts }}</td>
+            <td>{{ submission.user_answer }}</td>
+          </tr>
+                
+        {% endfor %}
+
+    </tbody>
+    </table>
+    {% else %}
+        <h1>You do not have access to this profile</h1>
+    {% endif %}
+    
+
+</body>
+
+
+{% endblock %}

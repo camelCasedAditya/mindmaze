@@ -11,23 +11,17 @@
       </nav>
     <h2> {{ term.season }} {{ term.year }}</h2>
     <div class="list-group list-group-flush">
-        {% for week in preview %}
-        {% if week != 0 %}
-            
-            
-                {% for puzzle in week %}
-                    {% if puzzle.number == 1 %}
-                    <a href="{{ puzzle.week }}"  class="list-group-item">
-                        <h1> Week {{ puzzle.week }}</h1>
-                    {% endif %}
-                    {% if puzzle != 0 %}
-
-                    {% endif %}
+        {% for week, solved, incorrect in weeks %}
+            {% if week != 0 %}      
+                <a href="{{ week }}"  class="list-group-item">
+                    <h1> Week {{ week }}</h1>
                     
-                
-                {% endfor %}
-                
-            </a>
+                    <div class="progress">
+                    
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ solved }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ incorrect }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </a>
             {% endif %}
         
         {% endfor %}

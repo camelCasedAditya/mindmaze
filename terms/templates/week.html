@@ -44,7 +44,7 @@
                 <div class="col">
                     <h1>{{ puzzle.label }}</h1>
                     <p>{{ puzzle.instruction }}</p>
-                    {% if submission != 0 %}
+                    {% if submission != 0 and submission.is_correct %}
                         <a href="{% url 'solved_detail' puzzle.pk %}">
                             {{ puzzle.position_diagram|safe }}
                         </a>

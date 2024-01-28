@@ -1,7 +1,7 @@
 
 # mindMaze - Puddletown Homework Helper
 
-##Local Setup
+## Local Setup
 NOTE: We highly recommend you run the app in a virtual environment
 
 - Install Homebrew:
@@ -21,7 +21,7 @@ NOTE: We highly recommend you run the app in a virtual environment
   - `pip install pandas`
   - `pip install whitenoise`
 
-- Run any appropriate migrations
+- Run any appropriate migrations (if prompted, when you run the site)
   - `python manage.py migrate`
 
 - Run the webiste

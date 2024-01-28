@@ -1,25 +1,28 @@
 
-# mindmaze
+# mindMaze - Puddletown Homework Helper
 
-MindMaze - Homework Helper
-
-Local Setup
-We highly recommend you run the app in a virtual environment
+##Local Setup
+NOTE: We highly recommend you run the app in a virtual environment
 
 - Install Homebrew:
-`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"`
-- `brew update`
+  - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"`
+  - `brew update`
 - Install Python: 
   - `brew install python@3.11`
-- Switch to virtual env 
+- Create virtual env (if not already done) 
   - `python3.11 -m venv venv`
-- Install django : 
+- Switch to the virtual env
+  - `source venv/bin/activate``
+- Install django (if not already installed): 
   - `pip install django`
 - Install the initial python packages:
   - `pip install python-chess`
   - `pip install plotly`
   - `pip install pandas`
+  - `pip install whitenoise`
 
-Run the webiste
+- Run any appropriate migrations
+  - `python manage.py migrate`
 
-- `python manage.py runserver`
+- Run the webiste
+  - `python manage.py runserver`
